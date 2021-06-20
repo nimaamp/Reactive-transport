@@ -1,0 +1,75 @@
+TITLE
+ShortCourse5a.in: Cs exchange on Hanford sediments using Gaines-Thomas
+END
+
+ION_EXCHANGE
+exchange   Xhan1-
+exchange   Xhan2-
+convention Gaines-Thomas
+END
+ 
+RUNTIME
+!database_sweep      on
+density_module      sodium_nitrate
+graphics            kaleidagraph
+database            HanfordTanksBatchFit2Site-GT.dbs
+END
+
+Condition TankSolution
+units            molar
+temperature      25.0
+pH               8.0
+HCO3-            CO2(g)  3.15e-04
+K+               5.e-6
+NO3-             1.0088
+Cs+              9.93e-5 
+I-               9.93e-5 
+Na+              1.01
+Ca++             0.0
+Mg++             0.0
+Tracer           0.001
+Cl-              charge
+Xhan1-   -cec    4.046788E-08         -ss_ratio 3529
+Xhan2-   -cec    1.0838E-04           -ss_ratio 3529
+END
+ 
+Condition InitialSediment
+units            molar
+temperature      25.0
+pH               8.0
+HCO3-            CO2(g)  3.15e-04
+K+               0.0015
+NO3-             0.0
+Cs+              0.000
+I-               0.000
+Na+              0.001
+Ca++             Calcite
+Mg++             0.00005
+Tracer           0.0
+Cl-              charge
+Xhan1-   -cec    4.046788E-08         -ss_ratio 3529
+Xhan2-   -cec    1.0838E-04           -ss_ratio 3529
+END
+ 
+PRIMARY_SPECIES
+Cs+
+Na+
+Ca++
+Mg++
+I-
+Tracer
+H+
+HCO3-
+K+
+NO3-
+Cl-
+END
+ 
+SECONDARY_SPECIES
+END
+
+
+ 
+
+ 
+

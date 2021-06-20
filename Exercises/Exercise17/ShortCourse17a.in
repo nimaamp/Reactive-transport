@@ -1,0 +1,126 @@
+TITLE
+ShortCourse17a.in:  1D flow with tracer, no gravity term
+END
+
+RUNTIME
+time_units         years
+timestep_max       10.0
+timestep_init      1.E-10
+time_tolerance     0.001
+hindmarsh          false
+correction_max     10.0
+debye-huckel       true
+database_sweep     false
+speciate_only      false
+graphics           kaleidagraph
+solver             bicg
+pc                 ilu
+pclevel            5
+master_variable    Tracer
+database           datacom.dbs
+coordinates        rectangular
+gimrt              false
+screen_output      10
+fix_saturation     1.00
+END
+
+BOUNDARY_CONDITIONS
+x_begin   soilwater           flux
+x_end     corestone           flux
+END
+
+INITIAL_CONDITIONS
+corestone   1-20
+END
+
+FLOW
+distance_units      meters
+time_units          seconds
+calculate_flow      true
+permeability_X      1.0E-18  default
+pressure            0.0      default
+pressure            10.0      zone  0-0 fix
+pressure            0.0      zone   21-21 fix
+gravity             90.0  90.0  90.0  down   
+END
+
+DISCRETIZATION
+distance_units   millimeters
+xzones           20  1.0
+END 
+
+OUTPUT
+time_units           years
+spatial_profile      10.0
+!!000 25000 50000  75000  100000  125000
+END
+
+POROSITY
+!!porosity_update  true
+!!minimum_porosity  0.003
+fix_porosity  1.000
+END
+
+TRANSPORT
+distance_units           centimeters
+time_units               second
+!!anisotropy_ratio         0.1
+!!fix_diffusion            1.E-08
+gas_diffusion             1.E-02
+calculate_diffusion      0.919e-05
+diffusion_activation     5.0
+formation_factor         1.00
+cementation_exponent     1.90
+dispersion      0.00
+END
+
+Condition soilwater
+temperature    25.0
+Tracer         0.001   
+END
+
+Condition corestone
+temperature    25.0
+Tracer         0.000001
+END
+
+MINERALS
+END
+
+PRIMARY_SPECIES
+Tracer
+END
+
+SECONDARY_SPECIES
+END
+
+GASES
+END
+
+distance_units      meters
+time_units          seconds
+calculate_flow      true
+permeability_X      1.0E-18  default
+pressure            0.0      default
+pressure            0.0      zone  1-1 1-1  fix
+pressure            200000.0      zone  1-1 20-20
+gravity             90.0  0.0  90.0  down  
+
+
+
+distance_units      meters
+time_units          seconds
+calculate_flow      true
+permeability_X      1.0E-13  default
+pressure            0.0      default
+pressure            0.0      zone  1-1 fix
+gravity             0.0  90.0  90.0  down 
+
+distance_units      meters
+time_units          seconds
+calculate_flow      true
+permeability_X      1.0E-13  default
+permeability_Y      1.0E-13  default
+pressure            0.0      default
+pressure            0.0      zone  1-50 1-1  fix
+gravity             90.0  0.0  90.0  down  

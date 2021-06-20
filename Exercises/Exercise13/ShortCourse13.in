@@ -1,0 +1,165 @@
+TITLE
+ShortCourse13.in:  Lorah and Olsen (1999) study, with only major redox processes
+END
+ 
+RUNTIME
+timestep_max    1.0
+timestep_init   1.e-10
+time_tolerance  0.001
+correction_max  2.0
+debye-huckel    true
+database_sweep  no
+graphics        kaleidagraph
+database        cmwr.dbs
+END
+ 
+OUTPUT
+spatial_profile  50.0
+END
+ 
+POROSITY
+!!fix_porosity     1.00  
+porosity_update  false
+END
+ 
+TEMPERATURE
+set_temperature  25.0
+END
+ 
+PRIMARY_SPECIES
+H+
+CO2(aq)
+SO4--
+Na+
+Cl-
+HS-
+Fe++
+Fe+++
+Methane(aq)
+O2(aq)
+END
+ 
+SECONDARY_SPECIES
+H2S(aq)
+S--
+HSO4-
+OH-
+CO3--
+HCO3-
+Fe(OH)2(aq)
+Fe(OH)3-
+Fe(OH)4--
+FeOH+
+END
+
+ 
+MINERALS
+OrgC_aerobic   -rate   -8.50
+OrgC_iron      -rate   -9.00
+OrgC_sulfate   -rate   -7.50
+OrgC_methane   -rate   -7.50
+FeS(am)        -rate   -9.00
+Fe(OH)3_HS     -rate   -8.20
+END
+ 
+GASES
+O2(g)
+CO2(g)
+CH4(g)
+END
+ 
+DISCRETIZATION
+xzones 100 0.1
+END
+ 
+Condition aquifer
+temperature      25.0
+pH               4.96
+CO2(aq)          1.e-04
+SO4--            1.50e-03
+Na+              1.e-03
+Cl-              1.e-03
+HS-              0.0
+Fe++             0.0
+Fe+++            0.0
+Methane(aq)      0.0
+O2(aq)           52.2e-06
+OrgC_aerobic     0.0   0.00001
+OrgC_iron        0.0   0.00001
+OrgC_sulfate     0.0   0.00001
+OrgC_methane     0.0   0.00001
+FeS(am)          0.0   1.00
+Pyrite           0.0   1.00
+Fe(OH)3_HS       0.0   1.00
+END
+ 
+Condition channel
+temperature      25.0
+pH               6.81
+CO2(aq)          1.e-05
+SO4--            0.0
+Na+              1.e-05
+Cl-              1.e-05
+HS-              0.0
+Fe++             0.0
+Fe+++            0.0
+Methane(aq)      280.0e-06
+O2(aq)           0.0
+OrgC_aerobic     0.1   1.0
+OrgC_iron        0.1   1.0
+OrgC_sulfate     0.0   1.0
+OrgC_methane     0.0   1.0
+FeS(am)          0.0   1.00
+Pyrite           0.0   1.00
+Fe(OH)3_HS       0.1   1.00
+END
+
+Condition peat
+temperature      25.0
+pH               6.81
+CO2(aq)          1.e-05
+SO4--            0.0
+Na+              1.e-05
+Cl-              1.e-05
+HS-              0.0
+Fe++             0.0
+Fe+++            0.0
+Methane(aq)      280.0e-06
+O2(aq)           0.0
+OrgC_aerobic     0.1   1.0
+OrgC_iron        0.1   1.0
+OrgC_sulfate     0.1   1.0
+OrgC_methane     0.1   1.0
+FeS(am)          0.0   1.00
+Pyrite           0.0   1.00
+Fe(OH)3_HS       0.1   1.00
+END
+ 
+INITIAL_CONDITIONS
+peat    1-27
+aquifer 28-100
+END
+ 
+BOUNDARY_CONDITIONS
+X_begin   peat
+X_end     aquifer
+END
+ 
+TRANSPORT
+distance_units centimeters
+time_units  seconds
+calculate_diffusion  0.919e-05
+diffusion_activation   4.5
+formation_factor  3.0  
+cementation_exponent  0.0
+dispersivity  0.0
+END
+ 
+FLOW
+time_units  years
+distance_units meters
+constant_flow  -0.6
+END
+ 
+
+

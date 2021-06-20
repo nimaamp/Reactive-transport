@@ -1,0 +1,140 @@
+TITLE
+ShortCourse8.in: Weathering--a pure diffusion problem examining operator splitting error
+END
+ 
+RUNTIME
+time_units         years
+timestep_max     0.003        !! Corresponds to a diffusion number of about 0.1
+!!timestep_max       0.0003     !! This is the "base case"--diffusion number of 0.01
+timestep_init      1.E-09
+time_tolerance     0.01
+hindmarsh          true
+correction_max     2.0
+debye-huckel       true
+database_sweep     false
+speciate_only      false
+graphics           kaleidagraph
+solver             gmres
+preconditioner     ilu
+precondition_level 1
+master_variable    H+
+database           datacom.dbs
+coordinates        rectangular
+screen_output      50
+gimrt              false
+END
+ 
+OUTPUT
+time_units           years
+spatial_profile      1.0  10.0  50.0     
+END
+
+TRANSPORT
+distance_units           centimeters
+time_units               seconds
+fix_diffusion            1.E-08
+formation_factor         1.0  
+cementation_exponent     1.0
+dispersion               0.00
+END
+
+POROSITY
+fix_porosity             1.0
+END
+
+BOUNDARY_CONDITIONS
+x_begin   corestone      flux
+x_end     soilwater      dirichlet
+END
+
+INITIAL_CONDITIONS
+corestone   1-100
+soilwater   100-100      fix
+END
+
+DISCRETIZATION
+distance_units   millimeters
+xzones           100    1.0
+END
+
+Condition soilwater     Slightly acid due to elevated pCO2
+units            mol/kg
+temperature      25.0
+pH               5.5
+Na+              1.E-06
+K+               1.E-06
+Al+++            1.E-15
+SiO2(aq)         1.E-06
+CO2(aq)          CO2(g)  1.E-03
+Cl-              charge
+END
+
+Condition corestone     In equilibrium with primary rock + kaolinite
+units            mol/kg
+temperature      25.0
+pH               8.5
+Na+              Albite
+K+               K-Feldspar
+Al+++            Kaolinite
+SiO2(aq)         Quartz
+CO2(aq)          CO2(g)  1.E-06
+Cl-              charge
+Albite    0.20   bulk_surface_area  100.0
+Quartz    0.60   bulk_surface_area  100.0
+Kaolinite 0.00   specific_surface_area  1.0
+Gibbsite  0.00   specific_surface_area  1.0
+END
+
+PRIMARY_SPECIES
+H+
+Na+
+K+
+Al+++
+SiO2(aq)
+CO2(aq)
+Cl-
+END
+
+MINERALS
+Albite
+K-Feldspar
+Kaolinite
+Gibbsite
+Quartz
+END
+
+SECONDARY_SPECIES
+Al(OH)2+                                                                                                                                                                                                                                           
+AlO2-                                                                   
+AlOH++                                                                  
+HCO3-                                                                   
+H2SiO4--                                                                
+H4(H2SiO4)4----                                                         
+H6(H2SiO4)4--                                                           
+HAlO2(aq)                                                               
+HCl(aq)                                                                 
+HSiO3-                                                                  
+KCl(aq)                                                                 
+KOH(aq)                                                                 
+NaAlO2(aq)                                                              
+NaCl(aq)                                                                
+NaHSiO3(aq)                                                             
+NaOH(aq)                                                                
+OH-                                                                     
+CO3--                                                                   
+NaCO3-                                                                  
+NaHCO3(aq)  
+END
+
+GASES
+CO2(g)
+END
+ 
+FLOW
+time_units       years
+distance_units   meters
+constant_flow    0.0
+END
+ 
+
+ 

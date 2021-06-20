@@ -1,0 +1,216 @@
+TITLE
+ShortCourse14.in:  Sulfate attack on cement under unsaturated conditions
+END
+
+
+RUNTIME
+time_units        days
+timestep_max      1.0
+timestep_init     1e-15
+time_tolerance    0.005
+correction_max    2.0
+debye-huckel      true
+database_sweep    false
+speciate_only     false
+gimrt             true
+lag_activity      true
+master            H+
+graphics          kaleidagraph
+screen_output     10
+database          datacom.dbs
+read_saturation   BrightonMeadowsSat.dat  FullForm
+!!fix_saturation  1.00
+END
+
+OUTPUT
+time_units           days
+distance_units       centimeters
+spatial_profile      730  2920
+time_series          CementBreakthrough.out 101 1  1
+time_series_print    pH  
+time_series_interval 1
+END
+
+INITIAL_CONDITIONS
+atmosphere           1-1  fix
+initial_condition    2-101
+END
+
+BOUNDARY_CONDITIONS
+X_begin   atmosphere        Dirichlet
+X_end     soil              Dirichlet
+END
+
+POROSITY
+!!fix_porosity     0.136
+porosity_update  true
+END
+
+MINERALS
+Calcite                -rate  -6.50
+GypsumMarchand         -rate  -6.0
+Quartz                 -rate  -35.00
+SiO2(am)               -rate  -8.00
+EttringiteMarchand     -rate  -6.0
+Hydrogarnet            -rate  -6.0
+CSHMarchand            -rate  -6.0  -threshold  0.5
+PortlanditeMarchand    -rate  -6.0
+Bogusite               -rate  -35.00
+END
+
+DISCRETIZATION
+xzones 1  0.0001 100 0.0010
+END
+
+Condition soil
+temperature           25.0
+OH-                   4.063E-09  activity
+!!pH                  5.6
+CO2(aq)               CO2(g)  0.001
+Ca++                  0.00
+K+                    0.00
+SO4--                 0.010
+Na+                   0.020
+Cl-                   0.00
+SiO2(aq)              0.00
+AlO2-                 0.00
+Calcite               0.00      1000.0
+GypsumMarchand        0.00      1000.0
+Quartz                0.00      1000.0
+SiO2(am)              0.00      1000.0
+EttringiteMarchand    0.013267901      1000.0
+Hydrogarnet           0.004013561      1000.0
+CSHMarchand           0.087676787      1000.0
+PortlanditeMarchand   0.040048967      1000.0
+Bogusite              0.718992784      1.0
+END
+
+Condition initial_condition
+temperature          25.0
+OH-                  183.42E-03
+!!pH                 13.2
+CO2(aq)              Calcite
+Ca++                 2.74E-03
+K+                   108.9E-03
+SO4--                1.17E-03
+Na+                  71.4E-03
+Cl-                  0.000
+SiO2(aq)             0.000
+AlO2-                0.03E-03
+Calcite              0.00          1000.0
+GypsumMarchand       0.00          1000.0
+Quartz               0.00          1000.0
+SiO2(am)             0.00          1000.0
+EttringiteMarchand   0.013267901      1000.0
+Hydrogarnet          0.004946947      1000.0
+!!Hydrogarnet        0.004947      1000.0
+CSHMarchand          0.087946495      1000.0
+PortlanditeMarchand  0.040048967   1000.0
+Bogusite             0.717789689   1.0
+END
+
+Condition atmosphere
+temperature          25.0
+OH-                  4.063E-09  activity
+CO2(aq)              CO2(g)   3.15E-04
+Ca++                 0.001
+K+                   0.001
+SO4--                0.001
+Na+                  0.001
+Cl-                  0.000
+SiO2(aq)             0.000
+AlO2-                0.03E-03
+Calcite              0.00      1000.0
+GypsumMarchand       0.00      1000.0
+Quartz               0.00      1000.0
+SiO2(am)             0.00      1000.0
+EttringiteMarchand   0.013267901      1000.0
+Hydrogarnet          0.004013561      1000.0
+CSHMarchand          0.087676787      1000.0
+PortlanditeMarchand  0.040048967      1000.0
+Bogusite             0.718992784      1.0
+END
+
+TRANSPORT
+distance_units       centimeters
+time_units           seconds
+calculate_diffusion  0.919e-05
+diffusion_activation 0.0
+formation_factor     140.533
+cementation_exponent 1.0
+!!  Diffusion coefficients agree with those used by Marchand
+D_25  H+       9.31e-05
+D_25  Na+      1.33e-05
+D_25  K+       1.96e-05
+D_25  Ca++     0.793e-05
+D-25  AlO2-    0.551E-05
+D_25  Al+++    0.559e-05
+D_25  OH-      5.27e-05
+D_25  Cl-      2.03e-05
+D_25  SO4--    1.07e-05
+D_25  HCO3-    1.18e-05
+D_25  CO3--    0.955e-05
+D-25  SiO2(aq) 2.20e-05
+END
+
+FLOW
+time_units         years
+distance_units     meters
+constant_flow     -1.3882E-02 
+constant_gas_flow  1.9302E-05 
+END
+
+TEMPERATURE
+set_temperature    25.0
+END
+
+PRIMARY_SPECIES
+OH-
+CO2(aq)
+Ca++
+K+
+SO4--
+Na+
+Cl-
+SiO2(aq)
+AlO2-
+END
+
+SECONDARY_SPECIES  
+H+                                                                 
+Al(SO4)2-                                                               
+AlSO4+                                                                  
+CaCl+                                                                   
+CaCl2(aq)                                                               
+CaSO4(aq)                                                               
+KCl(aq)                                                                 
+KSO4-                                                                   
+NaCl(aq)                                                                
+NaSO4- 
+Al(OH)2+                                                                     
+Al+++                                                                  
+AlOH++                                                                  
+HCO3-                                                                   
+CaOH+                                                                   
+H2SO4(aq)                                                               
+H2SiO4--     
+HAlO2(aq)                                                               
+HCl(aq)                                                                 
+HSO4-                                                                   
+HSiO3-                                                                  
+KHSO4(aq)                                                               
+KOH(aq)                                                                 
+NaAlO2(aq)                                                              
+NaHSiO3(aq)                                                             
+NaOH(aq)                                                                
+CO3--                                                                   
+CaCO3(aq)                                                               
+CaHCO3+                                                                 
+NaCO3-                                                                  
+NaHCO3(aq) 
+END
+
+GASES
+CO2(g)
+END
+

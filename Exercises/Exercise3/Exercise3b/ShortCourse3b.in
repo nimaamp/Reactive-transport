@@ -1,0 +1,81 @@
+TITLE
+ShortCourse3b.in:  Short course carbonate speciation--pH sweep (another way--titrate HCl)
+END
+
+RUNTIME
+speciate_only   false
+database_sweep  false
+database        datacom.dbs
+graphics        kaleidagraph
+density_module  temperature
+generic_rates   -5.00
+END
+
+OUTPUT
+time_units               days
+timestep_init            1.E-06
+timestep_max             1.0
+spatial_profile_at_time  365
+time_series_at_node      pHsweep3b.out 1  1  1
+time_series_print        all
+time_series_interval     1  
+END
+
+PRIMARY_SPECIES
+H+
+CO2(aq)
+Ca++
+Na+
+Cl-
+END
+
+Condition        speciate1   Fix total carbonate and pH
+units            mol/kg
+temperature      25.0
+pH               12.0 
+CO2(aq)          0.001 
+Na+              charge
+Cl-              0.01
+Ca++             0.00
+Calcite          0.10   1.0
+HCl(c)           0.10   1.0
+END
+
+POROSITY
+fix_porosity     1.00
+END
+
+SECONDARY_SPECIES 
+HCO3-                                                                   
+CaCl+                                                                   
+CaCl2(aq)                                                               
+CaOH+                                                                   
+HCl(aq)                                                                 
+NaCl(aq)                                                                
+NaOH(aq)                                                                
+OH-                                                                     
+CO3--                                                                   
+CaCO3(aq)                                                               
+CaHCO3+                                                                 
+NaCO3-                                                                  
+NaHCO3(aq)  
+END
+
+MINERALS 
+HCl(c)          -label default  -rate  -10.00
+END
+
+GASES
+CO2(g)
+END
+
+DISCRETIZATION 
+xzones  1  1.0
+END
+ 
+INITIAL_CONDITIONS
+speciate1   1-1
+END
+
+
+

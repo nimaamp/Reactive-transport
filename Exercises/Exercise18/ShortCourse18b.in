@@ -1,0 +1,221 @@
+TITLE
+ShortCourse18b.in:  CEA Test Problem involving 2D flow plus multicomponent chemistry
+END
+
+DATABASE
+datacom.dbs
+END
+
+RUNTIME
+time_units          days
+timestep_max        0.05
+timestep_init       1.e-12
+corrmax             2.0
+time_tolerance      0.5
+debye-huckel        true
+database_sweep      false
+speciate_only       false
+lag_activity        true
+gimrt               true
+graphics            tecplot
+master_variable     H+
+hindmarsh           false
+solver             bicg
+pc                 ilu
+pclevel            5
+screen_output      50
+END
+
+OUTPUT
+time_units               days
+spatial_profile_at_time  0.00001 0.001 0.01 0.1 1.0
+!!  30.0  60.0  90.0
+time_series_at_node      CEA.out  30 30
+time_series_print        Tracer
+time_series_interval     1  
+END
+
+POROSITY
+!!fix_porosity     0.30
+porosity_update  true
+END
+
+TEMPERATURE
+set_temperature  25.0
+END
+
+PRIMARY_SPECIES
+Tracer
+Na+
+Ca++
+H+
+SiO2(aq)
+HCO3-
+Cl-
+Oxalate
+END
+
+SECONDARY_SPECIES
+CO2(aq)                                                                 
+CO3--                                                                   
+CaCO3(aq)                                                               
+CaCl+                                                                   
+CaCl2(aq)                                                               
+CaHCO3+                                                                 
+CaOH+                                                                   
+H2SiO4--                                                                
+H4(H2SiO4)4----                                                         
+H6(H2SiO4)4--                                                           
+HCl(aq)                                                                 
+HSiO3-                                                                  
+NaCO3-                                                                  
+NaCl(aq)                                                                
+NaHCO3(aq)                                                              
+NaHSiO3(aq)                                                             
+NaOH(aq)                                                                
+OH- 
+Ca-Oxalate(aq)
+Ca-Oxalate--
+END
+
+MINERALS
+Portlandite   -rate  -5.00
+Ca-Oxalate    -rate  -5.00
+Quartz   
+Calcite     -rate   -35.0
+END
+
+GASES
+CO2(g)
+END
+
+DISCRETIZATION 
+distance_units   millimeters
+xzones  42   6.6667
+yzones  42   6.6667
+END
+ 
+Condition  quartz
+set_porosity  0.30
+temperature   25.0
+pH            6.8
+Tracer        0.00
+Na+           0.00
+Ca++          0.00
+SiO2(aq)      Quartz
+HCO3-         0.000
+Cl-           charge
+Oxalate       0.00
+Portlandite   0.00      1000.0
+Ca-Oxalate    0.00      1000.0
+Quartz        0.70      1000.0  
+END
+
+Condition  portlandite
+set_porosity  0.15
+temperature   25.0
+pH            12.5
+Tracer        0.00
+Na+           0.00
+Ca++          Portlandite
+SiO2(aq)      0.05
+HCO3-         Calcite   
+Cl-           0.00
+Oxalate       0.00
+Portlandite   0.15      1000.0
+Ca-Oxalate    0.00      1000.0
+Quartz        0.70      1000.0  
+END
+
+Condition  e1
+temperature   25.0
+pH            6.8
+Tracer        0.001
+Na+           0.00
+Ca++          0.01
+SiO2(aq)      Quartz
+HCO3-         0.000  
+Cl-           0.02
+Oxalate       0.00
+Portlandite   0.000      1000.0
+Ca-Oxalate    0.000      1000.0
+Quartz        0.000      1000.0  
+END
+
+Condition  e2
+temperature   25.0
+pH            6.8
+Tracer        0.00
+Na+           0.8
+Ca++          0.00
+SiO2(aq)      Quartz
+HCO3-         0.000
+Cl-           0.00
+Oxalate       0.4
+Portlandite   0.000      1000.0
+Ca-Oxalate    0.000      1000.0
+Quartz        0.000      1000.0  
+END
+
+INITIAL_CONDITIONS
+quartz        1-42  1-42 
+portlandite   22-33  1-42   
+END
+
+BOUNDARY_CONDITIONS
+X_begin   quartz  Flux 
+X_end     quartz  Flux 
+Y_begin   quartz  Flux 
+Y_end     quartz  Flux 
+END
+
+TRANSPORT
+distance_units  meters
+time_units  seconds
+fix_diffusion     1.E-09
+dispersivity  0.02  0.02
+formation_factor  1.3
+anisotropy_ratio  0.1
+END
+
+FLOW
+distance_units      meters
+time_units          seconds
+calculate_flow      true
+permeability_X      1.024E-12  default 
+permeability_Y      1.024E-12  default
+permeability_X      1.024E-13  zone  22-33  1-42    1-1
+permeability_Y      1.024E-13  zone  22-33  1-42    1-1
+permeability_X      0.0  zone  0-0  1-42   1-1
+permeability_X      0.0  zone  43-43  1-42   1-1
+permeability_Y      0.0  zone  1-42  0-0   1-1
+permeability_Y      0.0  zone  1-42  43-43   1-1
+permeability_X      1.024E-12  zone  0-0  31-36   1-1
+permeability_Y      1.024E-12  zone  13-18  42-43   1-1
+permeability_X      1.024E-12  zone  42-43  25-36   1-1
+permeability_Y      1.024E-12  zone  42-42  25-36   1-1
+pressure            0.001      default
+pressure            0.000      zone  43-43  1-42 fix
+pump    1.33333E-06     e1     1  31   1
+pump    1.33333E-06     e1     1  32   1
+pump    1.33333E-06     e1     1  33   1
+pump    1.33333E-06     e1     1  34   1
+pump    1.33333E-06     e1     1  35   1
+pump    1.33333E-06     e1     1  36   1
+pump    2.66666E-06     e2     13 42   1
+pump    2.66666E-06     e2     14 42   1
+pump    2.66666E-06     e2     15 42   1
+pump    2.66666E-06     e2     16 42   1
+pump    2.66666E-06     e2     17 42   1
+pump    2.66666E-06     e2     18 42   1
+END
+
+
+AQUEOUS_KINETICS
+END
+
+ION_EXCHANGE
+END
+
+SURFACE_COMPLEXATION
+END

@@ -1,0 +1,105 @@
+TITLE
+ShortCourse19b.in:  TEST case 2D with variable density fluids
+END
+
+RUNTIME
+time_units         years
+timestep_max       0.01
+timestep_init      1.E-10
+time_tolerance     0.001
+hindmarsh          false
+correction_max     10.0
+debye-huckel       true
+database_sweep     false
+speciate_only      false
+density_module     martin
+graphics           kaleidagraph
+solver             bicg
+pc                 ilu
+pclevel            5
+master_variable    Tracer
+database           datacom.dbs
+coordinates        rectangular
+gimrt              true
+screen_output      10
+fix_saturation     1.00
+END
+
+BOUNDARY_CONDITIONS
+x_begin   dilutewater           flux
+x_end     dilutewater           flux
+y_begin   dilutewater           flux
+y_end     dilutewater           flux
+END
+
+DISCRETIZATION
+distance_units   meters
+xzones           51  1.0
+yzones           20  1.0
+zzones		 1   1.0
+END 
+
+INITIAL_CONDITIONS
+dilutewater   1-51  1-20
+salinewater   1-25  1-20
+END
+
+FLOW
+distance_units      meters
+time_units          seconds
+calculate_flow      true
+permeability_X      1.0E-13  default
+permeability_Y      1.0E-13  default
+pressure            10000.0      default
+pressure            0.0    zone  1-51  0-0 fix
+gravity             90.0  0.0  90.0  down   
+initialize_hydrostatic   true 
+END
+
+OUTPUT
+time_units           years
+spatial_profile   0.1  1.0  5.0
+END
+
+POROSITY
+!!porosity_update  true
+!!minimum_porosity  0.003
+fix_porosity  1.000
+END
+
+TRANSPORT
+distance_units           centimeters
+time_units               second
+!!anisotropy_ratio         0.1
+fix_diffusion            0.000
+gas_diffusion             1.E-02
+calculate_diffusion      0.919e-05
+diffusion_activation     5.0
+formation_factor         1.00
+cementation_exponent     1.90
+dispersion      0.00
+END
+
+Condition salinewater
+temperature    25.0
+Tracer         0.001   
+END
+
+Condition dilutewater
+temperature    25.0
+Tracer         0.000001
+END
+
+MINERALS
+END
+
+PRIMARY_SPECIES
+Tracer
+END
+
+SECONDARY_SPECIES
+END
+
+GASES
+END
+

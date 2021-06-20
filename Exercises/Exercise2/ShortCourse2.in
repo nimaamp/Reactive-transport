@@ -1,0 +1,105 @@
+TITLE
+calcitedissolution.in:  Short course carbonate speciation
+END
+
+RUNTIME
+speciate_only   false
+database_sweep  true 
+database        datacom.dbs
+graphics        kaleidagraph
+density_module  temperature
+END
+
+OUTPUT
+time_units               hours
+spatial_profile  1.0  10.0 50.0
+!!spatial_profile          1.0  10.0 50.0
+! time_series_at_node      TimeSeries2.out  1  1  1
+time_series                TimeSeries2.out 1  1  1
+time_series_print          pH  Ca++  CO2(aq)
+time_series_interval     1  
+END
+
+PRIMARY_SPECIES
+CO2(aq)
+Ca++
+Na+
+Cl-
+Acetic_acid(aq)
+Acetate
+END
+
+Condition        initial_condition   Fix pCO2 and calculate pH based on charge balance
+units            mol/kg
+temperature      25.0
+Acetic_acid(aq)  0.001
+Acetate          0.001
+CO2(aq)          CO2(g)   3.15E-04 
+Na+              0.01
+Cl-              0.01
+Ca++             0.00
+Calcite          0.20   100.0
+END
+
+POROSITY
+fix_porosity     1.00
+END
+
+SECONDARY_SPECIES 
+H+                                                                      
+CaCl+                                                                   
+CaCl2(aq)                                                               
+NaCl(aq)                                                                
+HCO3-                                                                   
+Ca(CH3COO)2(aq)                                                         
+CaCH3COO+                                                               
+CaOH+                                                                   
+Na(CH3COO)2-                                                            
+NaCH3COO(aq)                                                            
+NaOH(aq)                                                                
+OH-                                                                     
+CO3--                                                                   
+CaCO3(aq)                                                               
+CaHCO3+                                                                 
+NaCO3-                                                                  
+NaHCO3(aq) 
+END
+
+MINERALS
+Calcite     -label default  -rate  -6.50  
+END
+
+GASES
+CO2(g)
+END
+
+DISCRETIZATION 
+xzones  1  1.0
+END
+ 
+INITIAL_CONDITIONS
+initial_condition   1-1
+END
+
+!!BOUNDARY_CONDITIONS
+!!X_begin   speciate1  Flux 
+!!X_end     speciate1   Flux 
+!!END
+
+!!TEMPERATURE
+!!set_temperature  25.0
+!!END
+
+!!TRANSPORT
+!!distance_units   meters
+!!time_units       years
+!!fix_diffusion    0.0
+!!END
+
+!!FLOW
+!!distance_units   meters
+!!time_units       years
+!!constant_flow    0.0  0.0
+!!END
+
+
