@@ -1,0 +1,128 @@
+TITLE
+Benchmark 1:  Transient Electromigration
+END
+ 
+DATABASE
+datacom.dbs  
+END
+ 
+RUNTIME
+time_units      hour
+timestep_max    1.0e-3
+timestep_init   1.0e-10
+time_tolerance  0.1
+correction_max  1.0
+debye-huckel    yes
+database_sweep  no
+gimrt           true
+lag_activity    false
+graphics        tecplot
+screen_output   100
+END
+ 
+OUTPUT
+time_units       hour
+spatial_profile  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0
+time_series_interval 1 
+END
+
+INITIAL_CONDITIONS
+initial 1-100
+END
+ 
+BOUNDARY_CONDITIONS
+X_begin   inlet        Dirichlet
+X_end     outlet       flux
+END
+ 
+TRANSPORT
+distance_units centimeters
+time_units  seconds
+fix_diffusion  2.0e-05
+
+D_25  H+      9.31e-05
+D_25  Na+     1.33e-05
+D_25  Cl-     2.03e-05
+D_25  NO3-    1.90e-05
+D_25  OH-     5.27e-05
+
+END
+
+Condition initial
+temperature      25.0
+pH               4.007
+Cl-              1.e-04 
+Na+              1.e-04
+NO3-             1.e-04
+END
+
+Condition inlet
+temperature      25.0
+pH               6.001
+Cl-              1.e-04 
+Na+              1.e-04
+NO3-             1.e-06
+END
+
+Condition outlet
+temperature      25.0
+pH               4.007
+Cl-              1.e-04 
+Na+              1.e-04
+NO3-             1.e-04
+END
+ 
+DISCRETIZATION
+distance_units centimeters
+xzones 100 1e-2
+END
+
+POROSITY
+fix_porosity     1  
+porosity_update  false
+END
+ 
+TEMPERATURE
+set_temperature  25.0
+END
+ 
+PRIMARY_SPECIES
+H+
+Cl-
+Na+
+NO3-
+END
+ 
+SECONDARY_SPECIES
+OH-
+END
+ 
+FLOW
+time_units  days
+distance_units centimeters
+constant_flow  0.00
+END
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

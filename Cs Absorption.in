@@ -1,0 +1,120 @@
+TITLE
+Cs adsorption
+END
+
+
+
+RUNTIME
+time_units      days
+timestep_max    1.0e-3
+timestep_init   1.0e-10
+time_tolerance  0.1
+correction_max  1.0
+debye-huckel    yes
+database_sweep  no
+gimrt           true
+lag_activity    false
+graphics        tecplot
+database        database.dbs
+Makemovie       Cs+
+screen_output   10
+END
+
+OUTPUT
+time_units            days
+spatial_profile       0.1 1.0
+time_series_print     Cs+  pH  
+time_series_interval  1 
+END
+
+DISCRETIZATION
+distance_units centimeters
+xzones 100 1e-2
+END
+
+MINERALS  
+Illite
+END
+
+INITIAL_CONDITIONS
+initial     1-100
+END
+
+TRANSPORT
+distance_units centimeters
+time_units  seconds
+fix_diffusion  2.0e-05
+
+D_25  Cs+     2.03e-05
+END
+
+BOUNDARY_CONDITIONS
+X_begin   inlet        Dirichlet
+X_end     outlet       flux
+END
+
+Condition        initial 
+units            mol/kg 
+temperature      25.0
+H+               0.0001
+OH-              0.0001
+Cs+              0.0
+Na+              0.0001
+Cl-              0.0001
+K+               0.0
+SiO2(aq)         0
+Al+++            0
+Mg++             0 
+
+
+Illite           0.003     specific_surface_area  50.0        
+END
+
+Condition inlet
+units            mol/kg 
+temperature      25.0
+H+               0.0001
+OH-              0.0001
+Cs+              0.0001
+Na+              0.0001
+Cl-              0.0002
+K+               0.0
+SiO2(aq)         0
+Al+++            0
+Mg++             0
+
+Illite           0.003     specific_surface_area  50.0
+END
+
+Condition outlet
+units            mol/kg 
+temperature      25.0
+H+               0.0001
+OH-              0.0001
+Cs+              0.0
+Na+              0.0001
+Cl-              0.0001
+K+               0.0
+SiO2(aq)         0
+Al+++            0
+Mg++             0
+
+Illite           0.003     specific_surface_area  50.0
+END
+
+PRIMARY_SPECIES  
+H+
+Na+ 
+K+
+Cl-    
+Cs+       
+SiO2(aq)  
+Mg++   
+Al+++ 
+END
+
+SECONDARY_SPECIES  
+
+OH-                                                                                                                                                                                                                                         
+END
+
